@@ -1,0 +1,10 @@
+{
+  "name": "ghana-data-protection-policies",
+  "description": "Writes and audits privacy policies, terms of service, and cookie policies for Ghana-based products under the Data Protection Act, 2012 (Act 843). Scans the target codebase for what personal data it actually collects before drafting, and enforces plain English with no em dashes.",
+  "version": "1.0.0",
+  "author": {
+    "name": "RansfordGenesis"
+  },
+  "keywords": ["privacy-policy", "ghana", "data-protection", "act-843", "terms-of-service", "cookie-policy", "compliance"],
+  "skills": ["./"]
+}
