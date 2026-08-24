@@ -1,0 +1,24 @@
+{
+  "name": "claude-skills",
+  "owner": {
+    "name": "RansfordGenesis"
+  },
+  "metadata": {
+    "description": "Personal skills for Claude Code and other agent CLIs that read the Agent Skills format.",
+    "version": "1.0.0"
+  },
+  "plugins": [
+    {
+      "name": "ghana-data-protection-policies",
+      "source": "./skills/ghana-data-protection-policies",
+      "description": "Writes and audits privacy policies, terms of service, and cookie policies for products processing personal data in Ghana, grounded in a scan of the target codebase and Ghana's Data Protection Act, 2012 (Act 843).",
+      "version": "1.0.0",
+      "author": {
+        "name": "RansfordGenesis"
+      },
+      "keywords": ["privacy-policy", "ghana", "data-protection", "act-843", "terms-of-service", "cookie-policy", "compliance"],
+      "category": "compliance",
+      "strict": false
+    }
+  ]
+}
