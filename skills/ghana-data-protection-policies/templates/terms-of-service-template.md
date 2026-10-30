@@ -22,7 +22,8 @@ These terms cover your use of [product name], provided by [legal entity name]. B
 
 [What's not allowed: abuse, scraping, reselling access, illegal content, etc. Keep to what's actually enforced/relevant.]
 
-## [Payments and refunds — commerce products only]
+<!-- Commerce products only: delete this section otherwise. -->
+## Payments and refunds
 
 [Pricing, currency, payment processor named from the scan, e.g. Paystack, refund/cancellation policy.]
 
