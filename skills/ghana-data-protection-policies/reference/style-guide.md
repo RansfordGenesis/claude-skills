@@ -10,7 +10,7 @@ Never use an em dash (—) or en dash (–) anywhere in the output. Not for asid
 - Range: spell it out. "12 to 24 months" not "12–24 months."
 - List lead-in: use a colon, not a dash.
 
-Before finishing, search your own draft for `—`, `–`, and `--` and rewrite every hit. This is a hard rule, not a style preference to weigh against other goals.
+Before finishing, search your own draft for `—`, `–`, and `--` used as a dash, and rewrite every hit (HTML comment markers like `<!--` don't count). This is a hard rule, not a style preference to weigh against other goals.
 
 ## Plain English rules
 
@@ -26,17 +26,17 @@ Before finishing, search your own draft for `—`, `–`, and `--` and rewrite e
 
 MTN Ghana's public privacy policy (the largest, most established privacy notice in the Ghanaian market) uses this shape. Use it as the default, and adapt section names to what the product actually does:
 
-1. **Who we are / what this covers** — one short paragraph.
-2. **Information we collect** — grouped by source (account/signup, usage, payment, support, optional/analytics), each with a one-line reason.
-3. **How we use it** — a short bullet list, one line each.
-4. **Legal basis / is this allowed** — tie each use back to a ground under s20 of Act 843 (contract, consent, legitimate interest, legal duty). Skip this as a separate section for a small consumer product if it would just repeat "how we use it" in legal language; fold it into that section as a phrase instead ("...to run your order, which we need to do to fulfil the contract you make with us at checkout").
-5. **Where your data is stored / who we share it with** — name the vendors, say if any are outside Ghana, say plainly "we do not sell your personal data."
-6. **How long we keep it** — tie to the account lifecycle or a stated period; mention deletion.
-7. **Your rights** — access, correction, objection, withdrawing consent, stopping direct marketing, and how to reach the business to exercise them; mention the right to complain to the Data Protection Commission.
-8. **Children** — state the real policy; see the Act reference doc for why "under 13" alone may understate Act 843's rule.
-9. **Security** — one paragraph on the real measures in place (encryption in transit, access control, provider security) grounded in what the codebase scan found, not boilerplate.
-10. **Changes to this policy** — how updates are communicated.
-11. **Contact us** — email, and DPC registration number if the user confirms one exists.
+1. **Who we are / what this covers**: one short paragraph.
+2. **Information we collect**: grouped by source (account/signup, usage, payment, support, optional/analytics), each with a one-line reason.
+3. **How we use it**: a short bullet list, one line each.
+4. **Legal basis / is this allowed**: tie each use back to a ground under s20 of Act 843 (contract, consent, legitimate interest, legal duty). Skip this as a separate section for a small consumer product if it would just repeat "how we use it" in legal language; fold it into that section as a phrase instead ("...to run your order, which we need to do to fulfil the contract you make with us at checkout").
+5. **Where your data is stored / who we share it with**: name the vendors, say if any are outside Ghana, say plainly "we do not sell your personal data."
+6. **How long we keep it**: tie to the account lifecycle or a stated period; mention deletion.
+7. **Your rights**: access, correction, objection, withdrawing consent, stopping direct marketing, and how to reach the business to exercise them; mention the right to complain to the Data Protection Commission.
+8. **Children**: state the real policy; see the Act reference doc for why "under 13" alone may understate Act 843's rule.
+9. **Security**: one paragraph on the real measures in place (encryption in transit, access control, provider security) grounded in what the codebase scan found, not boilerplate.
+10. **Changes to this policy**: how updates are communicated.
+11. **Contact us**: email, and DPC registration number if the user confirms one exists.
 
 For a Terms of Service, adapt to: who can use the service, account responsibilities, acceptable use, payment/refunds (if commerce), intellectual property, service availability/liability limits, termination, governing law, and how to contact the business. For a Cookie Policy: what cookies/local storage are used, which are essential vs. optional, how to control them (link to an in-app preferences control if the scan found one), and third-party cookies from ad/analytics pixels.
 

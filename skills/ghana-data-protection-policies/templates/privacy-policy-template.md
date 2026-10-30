@@ -10,12 +10,16 @@ in the final text: see style-guide.md.
 
 Last updated [date]
 
-[Product name] is [one-line description of what it does]. This policy explains what information we collect, why, and the choices you have. By using [product name] you agree to the practices described here.
+[Product name] is [one-line description of what it does], run by [legal entity name], [business address]. This policy explains what information we collect, why, and the choices you have.
+
+<!-- Act 843 s27(2) requires the name and address of whoever collects the data. Don't add "by using this site you agree": a notice is not consent under s20. -->
 
 ## Information we collect
 
 - **[Category, e.g. Account information].** [What fields, where from, e.g. "When you sign in with Google we receive your name, email address, and profile picture."]
 - **[Category].** [...]
+
+[Say which details are required and which are optional, and what happens if someone doesn't give a required one (s27(2)(d) and (e)). For example: "Your name, phone number and delivery address are needed to deliver your order; without them we can't take it. Your email address is optional and only used to send your receipt."]
 
 ## How we use your information
 
@@ -39,7 +43,7 @@ Under Ghana's Data Protection Act, 2012 (Act 843), you can ask us to:
 - Withdraw consent, including for [any marketing/analytics use found]
 - Stop us from using your data for direct marketing, at any time
 
-To do any of these, email [contact email]. You can also complain to Ghana's Data Protection Commission at dataprotection.org.gh.
+To do any of these, email [contact email]. We may ask you to confirm who you are first, so we never hand your data to someone else. We'll reply to a request for your data within 40 days, and to an objection within 21 days, as Act 843 requires. You can also complain to Ghana's Data Protection Commission at dataprotection.org.gh.
 
 ## Children
 

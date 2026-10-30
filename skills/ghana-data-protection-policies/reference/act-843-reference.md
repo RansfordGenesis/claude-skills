@@ -1,4 +1,4 @@
-# Data Protection Act, 2012 (Act 843) — distilled reference
+# Data Protection Act, 2012 (Act 843): distilled reference
 
 This distills the sections of the Act that matter for writing a privacy policy, terms of service, or cookie policy. Section numbers are given so claims can be checked against the original text. Do not invent a section number; if unsure, find the official text of Act 843 (e.g. via Ghana's Data Protection Commission, dataprotection.org.gh) and check.
 
@@ -9,22 +9,22 @@ The Act applies to a data controller where the controller is established in Ghan
 ## Key definitions (s96)
 
 - **Personal data**: data about an individual who can be identified from the data, or from the data plus other information the controller has or is likely to get.
-- **Special personal data**: race/ethnic origin, political opinion, religious or similar beliefs, physical/medical/mental health or DNA, sexual orientation, and data about an actual or alleged criminal offence. **A child under parental control is also special personal data (s37(1)(a))** — Act 843 does not use a "under 13" cutoff like COPPA. Under Ghanaian law (Children's Act, 1998, Act 560) a child is anyone under 18. If a policy says "not directed at children under 13," flag that this copies a US convention and understates Act 843's broader protection — Act 843's child-data rule covers anyone under 18 who is under parental control.
+- **Special personal data**: the s96 definition covers race, colour, ethnic or tribal origin, political opinion, religious or similar beliefs, physical/medical/mental health or DNA, sexual orientation, and actual or alleged offences and proceedings for them. Section 37(1)(b) adds philosophical beliefs, trade union membership and sexual life, so treat those as special too. **A child under parental control is also special personal data (s37(1)(a))**: Act 843 does not use a "under 13" cutoff like COPPA. Under Ghanaian law (Children's Act, 1998, Act 560) a child is anyone under 18. If a policy says "not directed at children under 13," flag that this copies a US convention and understates Act 843's broader protection. Act 843's child-data rule covers anyone under 18 who is under parental control.
 - **Data controller**: decides the purpose and manner of processing, alone or jointly.
 - **Data processor**: anyone other than an employee of the controller who processes data on the controller's behalf.
 - **Processing**: collection, organisation, adaptation, retrieval, use, disclosure, transmission, combination, blocking, erasure, or destruction of data.
 - **Third party**: anyone other than the data subject, the controller, or an authorised processor.
 
-## The eight data protection principles (s17, elaborated s18–26)
+## The eight data protection principles (s17, elaborated s18 to s26)
 
 1. **Accountability**
-2. **Lawfulness of processing** — processed without infringing privacy, lawfully, reasonably (s18).
-3. **Specification of purpose** — collected for a specific, explicit, lawful purpose tied to the controller's function (s22).
-4. **Compatibility of further processing** — further use must relate to the original purpose or fit a listed exception (consent, public data, legal proceedings, public-health/safety emergency, research) (s25).
-5. **Quality of information** — complete, accurate, up to date, not misleading (s26).
-6. **Openness** — the data subject must be told, before or as soon as practicable after collection: what data, who is collecting it, why, whether giving it is mandatory or optional, consequences of refusal, who receives it, and their access/correction rights (s23, s27(2)).
-7. **Data security safeguards** — see Security, below (s28).
-8. **Data subject participation** — access, correction, objection, and related rights (s32–s44).
+2. **Lawfulness of processing**: processed without infringing privacy, lawfully, reasonably (s18).
+3. **Specification of purpose**: collected for a specific, explicit, lawful purpose tied to the controller's function (s22).
+4. **Compatibility of further processing**: further use must relate to the original purpose or fit a listed exception (consent, public data, legal proceedings, public-health/safety emergency, research) (s25).
+5. **Quality of information**: complete, accurate, up to date, not misleading (s26).
+6. **Openness**: the data subject must be told, before or as soon as practicable after collection: what data, who is collecting it, why, whether giving it is mandatory or optional, consequences of refusal, who receives it, and their access/correction rights (s23, s27(2)).
+7. **Data security safeguards**: see Security, below (s28).
+8. **Data subject participation**: access, correction, objection, and related rights (s32 to s44).
 
 **Minimality (s19)**: only process data that is necessary, relevant, and not excessive for the purpose.
 
@@ -34,19 +34,19 @@ The Act applies to a data controller where the controller is established in Ghan
 
 **Retention (s24)**: do not keep personal data longer than needed for the purpose, unless retention is required/authorised by law, reasonably necessary for a lawful purpose, required by contract, or the data subject consents. Historical, statistical, and research retention is exempt from the time limit but must be protected against unauthorised use. When the retention period ends, the controller must destroy, delete, or de-identify the record so it cannot be reconstructed.
 
-## Registration (s27, s45–s56, s97)
+## Registration (s27, s45 to s56, s97)
 
-A data controller who intends to process personal data must register with the Data Protection Commission (DPC). Processing without registration is an offence (s53, s56 — fine up to 250 penalty units, up to 2 years imprisonment, or both). A controller in existence when the Act commenced had 3 months to register (s97(2)); one established afterward has 20 days from the start of business (s97(1)). Registration is renewed every two years (s50), and any change to the registered particulars must be notified to the DPC within 14 days (s55).
+A data controller who intends to process personal data must register with the Data Protection Commission (DPC). Processing without registration is an offence (s53, s56: fine up to 250 penalty units, up to 2 years imprisonment, or both). A controller in existence when the Act commenced had 3 months to register (s97(2)); one established afterward has 20 days from the start of business (s97(1)). Registration is renewed every two years (s50), and any change to the registered particulars must be notified to the DPC within 14 days (s55).
 
-When writing a privacy policy for a real Ghanaian business: ask whether the business is registered with the DPC and, if so, ask for the registration number to include (mirrors what MTN Ghana and other established Ghanaian companies publish). If not yet registered, say so plainly in your findings to the user — do not silently invent a registration number, and do not state "registered with the Data Protection Commission" unless the user confirms it.
+When writing a privacy policy for a real Ghanaian business: ask whether the business is registered with the DPC and, if so, ask for the registration number to include (mirrors what MTN Ghana and other established Ghanaian companies publish). If not yet registered, say so plainly in your findings to the user. Do not silently invent a registration number, and do not state "registered with the Data Protection Commission" unless the user confirms it.
 
-## Security measures (s28–s31)
+## Security measures (s28 to s31)
 
-The controller must take reasonable technical and organisational steps to prevent loss, damage, unauthorised destruction, unauthorised access, and unauthorised processing — identify foreseeable risks, put safeguards in place, verify they work, and keep updating them. A processor must be bound by a **written contract** requiring it to maintain confidentiality and security (s30(2)–(3)); if the processor is outside Ghana, the controller must ensure the processor still complies with Ghanaian law (s30(4)).
+The controller must take reasonable technical and organisational steps to prevent loss, damage, unauthorised destruction, unauthorised access, and unauthorised processing. That means identifying foreseeable risks, putting safeguards in place, verifying they work, and keeping them up to date. A processor must be bound by a **written contract** requiring it to maintain confidentiality and security (s30(2) and (3)); if the processor is outside Ghana, the controller must ensure the processor still complies with Ghanaian law (s30(4)).
 
 **Breach notification (s31)**: where there are reasonable grounds to believe personal data was accessed or acquired by an unauthorised person, the controller must notify the DPC **and** the affected data subject, as soon as reasonably practicable. Notification can be delayed if the DPC or a security agency says it would impede a criminal investigation. The notice must say enough for the person to protect themselves, and name the unauthorised person if known.
 
-## Rights of the data subject (s32–s44)
+## Rights of the data subject (s32 to s44)
 
 - **Access (s32, s35)**: on proof of identity, ask whether the controller holds data about them, get a description of it (including who has access to it), and get corrections made. The controller must respond within a reasonable time and, at the latest, **within 40 days** (s35(10)).
 - **Correction / deletion (s33)**: request correction or deletion of data that is inaccurate, irrelevant, excessive, outdated, incomplete, misleading, or unlawfully obtained.
@@ -55,17 +55,17 @@ The controller must take reasonable technical and organisational steps to preven
 - **Object to solely-automated decisions that significantly affect them (s41)**: does not apply to decisions made when entering or performing a contract, or where the law requires it.
 - **Compensation (s43)**: a data subject harmed by a breach of the Act can claim compensation; the controller has a defence if it took reasonable care.
 
-## Special personal data (s37–s38)
+## Special personal data (s37 to s38)
 
-Processing special personal data (including children's data) is prohibited unless it's necessary or the data subject consents, and one of the listed grounds applies: a legal obligation on an employer, protecting the vital interests of the subject where consent can't reasonably be obtained, the legitimate activity of a non-profit/political/religious/union body about its own members, legal proceedings or advice, or medical purposes handled by a health professional under a duty of confidentiality. Race/ethnicity data specifically may only be processed to identify or eliminate discrimination, with appropriate safeguards.
+Processing special personal data (including children's data) is prohibited unless the Act allows it (s37(1)). Section 37(2) allows it where the processing is **necessary** or the data subject **consents**. Subsections (3) to (6) describe when processing is necessary: a legal right or duty of an employer; protecting the subject's vital interests where consent can't be given or obtained; the legitimate activities of a non-profit political, philosophical, religious or trade union body about its own members; and (presumed necessary) legal proceedings, legal advice, establishing or defending legal rights, the administration of justice, or medical purposes handled by a health professional under a duty of confidentiality. Subsections (4) and (5) are worded as "shall not be processed unless", so the drafting is ambiguous about whether they add conditions on top of (2). Read it conservatively: get explicit consent where you can, and flag any special-data processing to the user for legal review. Race or ethnic origin data may only be processed to identify or eliminate discriminatory practices, with appropriate safeguards (s37(8)).
 
-## Exemptions worth knowing (s60–s74)
+## Exemptions worth knowing (s60 to s74)
 
 National security/public order/safety/morality/public interest, crime and tax enforcement, certain health/education/social-work disclosures, financial and professional regulatory activity, journalism/literature/art (still subject to lawfulness, minimality, further-processing, quality, and security principles), research/history/statistics, legally required disclosure, purely domestic/personal/household use, confidential references, armed forces, judicial appointments and honours, and examination marks/scripts.
 
-## Prohibited conduct (s88–s89)
+## Prohibited conduct (s88 to s89)
 
-Buying personal data, or knowingly/recklessly obtaining or disclosing someone else's personal data outside the Act, is an offence (up to 250 penalty units or 2 years, or both). **Selling personal data is a separate, heavier offence** (up to 2,500 penalty units or 5 years, or both) — an advertisement that data is or may be for sale counts as an offer to sell.
+Buying personal data, or knowingly/recklessly obtaining or disclosing someone else's personal data outside the Act, is an offence (up to 250 penalty units or 2 years, or both). **Selling personal data is a separate, heavier offence** (up to 2,500 penalty units or 5 years, or both). An advertisement that data is or may be for sale counts as an offer to sell.
 
 ## General penalty (s95)
 
@@ -73,4 +73,4 @@ Any offence under the Act without its own stated penalty carries a fine of up to
 
 ## What the Act does not spell out
 
-The sections read do not contain an EU-style blanket rule requiring an "adequacy" finding before sending Ghana-origin personal data abroad — s18(2) addresses the reverse case (foreign data sent *into* Ghana must still respect the foreign jurisdiction's law). When a codebase sends personal data to overseas infrastructure (US-hosted Supabase/Vercel, etc.), state that plainly and factually in the policy ("processed and stored outside Ghana, by [providers]") rather than asserting a legal transfer mechanism the Act text does not describe. If the user needs a firm answer on cross-border transfer conditions, point them to the DPC's own compliance guidelines (`dataprotection.org.gh`) rather than guessing.
+The sections read do not contain an EU-style blanket rule requiring an "adequacy" finding before sending Ghana-origin personal data abroad. Section 18(2) addresses the reverse case (foreign data sent *into* Ghana must still respect the foreign jurisdiction's law). When a codebase sends personal data to overseas infrastructure (US-hosted Supabase/Vercel, etc.), state that plainly and factually in the policy ("processed and stored outside Ghana, by [providers]") rather than asserting a legal transfer mechanism the Act text does not describe. If the user needs a firm answer on cross-border transfer conditions, point them to the DPC's own compliance guidelines (`dataprotection.org.gh`) rather than guessing.

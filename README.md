@@ -14,6 +14,10 @@ Writes and audits privacy policies, terms of service, and cookie policies for pr
 - "We take payments and run analytics here. Draft a privacy policy, terms of service, and cookie policy for it."
 - "Audit our current privacy policy against Act 843 and tell me what's missing."
 
+## Not legal advice
+
+The policies this skill drafts are starting points grounded in your codebase and a summary of the Act, not legal advice. Have a lawyer check them, or check them against the [Data Protection Commission](https://dataprotection.org.gh)'s own guidance, before you publish, especially if your product handles special personal data or children's data.
+
 ## Using a skill
 
 Skills aren't slash commands, so there's nothing special to type to invoke one. Once it's installed, just describe the task in plain language, close to the wording in its description above (or in the skill's own frontmatter). The tool matches your request against the installed skills' descriptions and loads the matching one automatically before it starts working. If it doesn't seem to trigger, naming the skill directly usually still works, e.g. "use the ghana-data-protection-policies skill to...".
@@ -40,3 +44,7 @@ Copy the skill's folder into your tool's skills directory:
 git clone https://github.com/RansfordGenesis/claude-skills.git
 cp -R claude-skills/skills/ghana-data-protection-policies ~/.claude/skills/
 ```
+
+## License
+
+[MIT](LICENSE)
