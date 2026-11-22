@@ -1,0 +1,21 @@
+{
+  "name": "fix-vulns",
+  "description": "Audits and fixes vulnerable dependencies in a JavaScript/TypeScript repo (Dependabot alerts or npm/pnpm/yarn/bun audit) on a dedicated branch. Judges which flaws are actually reachable, applies the smallest safe upgrades, validates against a pre-upgrade baseline, and reports what was and was not fixed. Never commits or pushes without approval.",
+  "version": "1.0.0",
+  "author": {
+    "name": "RansfordGenesis"
+  },
+  "keywords": [
+    "security",
+    "dependencies",
+    "dependabot",
+    "npm-audit",
+    "vulnerabilities",
+    "cve",
+    "nextjs"
+  ],
+  "skills": [
+    "./"
+  ],
+  "license": "MIT"
+}
