@@ -79,18 +79,20 @@ osv_cmd() {
 
 # Audit a fully pinned requirements file without installing anything.
 pip_audit_pinned() {
-  err=$(mktemp)
+  local err; err=$(mktemp)
   $pa -r "$1" --no-deps --disable-pip -f json 2>"$err" | fmt_pip_audit
   grep -qiE 'error|traceback' "$err" && { echo "pip-audit stderr:"; tail -n 5 "$err"; }
   rm -f "$err"
 }
-# Resolve an unpinned requirements file or pyproject.toml, then audit it.
+# Resolve a requirements file or project metadata (pyproject.toml, setup.py,
+# setup.cfg), then audit the pinned result.
 # Uses uv's resolver when present (no virtualenv needed); otherwise lets
 # pip-audit resolve in a temporary virtualenv.
 audit_resolved() {
+  local tmp err extra
   if have uv; then
     tmp=$(mktemp)
-    extra=""; [ "$(basename "$1")" = pyproject.toml ] && extra="--all-extras"
+    extra=""; case "$(basename "$1")" in pyproject.toml|setup.py|setup.cfg) extra="--all-extras" ;; esac
     if uv pip compile "$1" $extra --no-header --no-annotate -q -o "$tmp" 2>/dev/null; then
       echo "(resolved with uv pip compile$( [ -n "$extra" ] && echo ", all extras" ))"
       pip_audit_pinned "$tmp"
@@ -100,8 +102,20 @@ audit_resolved() {
     rm -f "$tmp"
   else
     err=$(mktemp)
-    if [ "$(basename "$1")" = pyproject.toml ]; then $pa . -f json 2>"$err" | fmt_pip_audit
-    else $pa -r "$1" -f json 2>"$err" | fmt_pip_audit; fi
+    case "$1" in
+      *.txt) $pa -r "$1" -f json 2>"$err" | fmt_pip_audit ;;
+      pyproject.toml) $pa . -f json 2>"$err" | fmt_pip_audit ;;
+      *) # setup.py / setup.cfg: pip-audit cannot read these directly
+        if have pip-compile; then
+          tmp=$(mktemp)
+          if pip-compile -q --all-extras --no-header --no-annotate -o "$tmp" "$1" 2>"$err"; then
+            echo "(resolved with pip-compile, all extras)"; pip_audit_pinned "$tmp"
+          else echo "pip-compile could not resolve $1:"; tail -n 5 "$err"; fi
+          rm -f "$tmp"
+        else
+          echo "COULD NOT AUDIT: $1 needs resolving first; install uv (https://docs.astral.sh/uv/) or pip-tools (pipx install pip-tools)."
+        fi ;;
+    esac
     grep -qiE 'error|traceback' "$err" && { echo "pip-audit stderr:"; tail -n 5 "$err"; }
     rm -f "$err"
   fi
@@ -140,15 +154,22 @@ for name, ver, v in rows:
 audit_js() {
   cd "$1" || return
   locks=$(ls package-lock.json npm-shrinkwrap.json pnpm-lock.yaml yarn.lock bun.lock bun.lockb 2>/dev/null | tr '\n' ' ')
-  if   [ -f pnpm-lock.yaml ]; then pm=pnpm
-  elif [ -f yarn.lock ];      then pm=yarn
-  elif [ -f bun.lock ] || [ -f bun.lockb ]; then pm=bun
-  elif [ -f package-lock.json ] || [ -f npm-shrinkwrap.json ]; then pm=npm
-  else echo "package.json without a lockfile here (a workspace member, or the audit is not reproducible)"; return; fi
-  [ "$(echo $locks | wc -w)" -gt 1 ] && echo "NOTE: several lockfiles here ($locks). Fix every one that CI or the host installs from."
-  echo "package manager: $pm"
-  if [ "$pm" = npm ] || [ -f package-lock.json ]; then
-    [ "$pm" = npm ] || echo "-- package-lock.json (npm) --"
+  pms=""
+  { [ -f package-lock.json ] || [ -f npm-shrinkwrap.json ]; } && pms="$pms npm"
+  [ -f pnpm-lock.yaml ] && pms="$pms pnpm"
+  [ -f yarn.lock ] && pms="$pms yarn"
+  { [ -f bun.lock ] || [ -f bun.lockb ]; } && pms="$pms bun"
+  if [ -z "$pms" ]; then echo "package.json without a lockfile here (a workspace member, or the audit is not reproducible)"; return; fi
+  [ "$(echo $locks | wc -w)" -gt 1 ] && echo "NOTE: several lockfiles here ($locks). Each is audited below; fix every one that CI or the host installs from."
+  for pm in $pms; do
+    echo "-- $pm lockfile --"
+    audit_js_one "$pm"
+  done
+}
+
+audit_js_one() {
+  pm=$1
+  if [ "$pm" = npm ]; then
     have npm || { missing npm "install Node.js"; return; }
     npm audit --package-lock-only --json 2>/dev/null | node -e '
       const a = JSON.parse(require("fs").readFileSync(0, "utf8"));
@@ -169,9 +190,7 @@ audit_js() {
     npm audit --package-lock-only --omit=dev --json 2>/dev/null | node -e '
       const a = JSON.parse(require("fs").readFileSync(0, "utf8"));
       console.log(JSON.stringify(a.metadata?.vulnerabilities || {}));'
-  fi
-  if [ "$pm" != npm ]; then
-    echo "-- $pm lockfile --"
+  else
     case $pm in
       pnpm) if have pnpm; then pnpm audit; else missing pnpm "corepack enable"; fi ;;
       yarn) if have yarn; then yarn npm audit --all --recursive 2>/dev/null || yarn audit; else missing yarn "corepack enable"; fi ;;
@@ -183,9 +202,9 @@ audit_js() {
 # ---------------------------------------------------------------- Python
 audit_python() {
   cd "$1" || return
-  pa=$(pip_audit_cmd); osv=$(osv_cmd); covered=0
+  pa=$(pip_audit_cmd); osv=$(osv_cmd); locked=0
   if [ -f uv.lock ]; then
-    covered=1; echo "source: uv.lock (uv export, then pip-audit)"
+    locked=1; echo "source: uv.lock (uv export, then pip-audit)"
     if ! have uv; then missing uv "https://docs.astral.sh/uv/"
     elif [ -z "$pa" ]; then missing pip-audit "uv tool install pip-audit, or pipx install pip-audit"
     else
@@ -197,13 +216,13 @@ audit_python() {
   fi
   for lock in poetry.lock Pipfile.lock pdm.lock; do
     [ -f "$lock" ] || continue
-    covered=1; echo "source: $lock (osv-scanner)"
+    locked=1; echo "source: $lock (osv-scanner)"
     if [ -n "$osv" ]; then $osv scan source --lockfile "$lock" 2>&1
     else missing osv-scanner "brew install osv-scanner, or go install github.com/google/osv-scanner/v2/cmd/osv-scanner@latest"; fi
   done
   for r in requirements*.txt requirements/*.txt; do
     [ -f "$r" ] || continue
-    covered=1; echo "source: $r (pip-audit)"
+    echo "source: $r (pip-audit)"
     if [ -z "$pa" ]; then missing pip-audit "pipx install pip-audit, or uv tool install pip-audit"; continue; fi
     if grep -vE '^[[:space:]]*(#|-|$)' "$r" | grep -qvE '==|@ '; then
       echo "NOTE: $r has unpinned lines; they are resolved to today's versions, which may differ from what is deployed."
@@ -212,9 +231,20 @@ audit_python() {
     # otherwise hide every transitive one. Existing pins are kept as-is.
     audit_resolved "$r"
   done
-  if [ $covered -eq 0 ] && [ -f pyproject.toml ]; then
-    echo "source: pyproject.toml without a lockfile (resolved to today's versions; not reproducible)"
-    if [ -n "$pa" ]; then audit_resolved pyproject.toml; else missing pip-audit "pipx install pip-audit"; fi
+  # Project metadata declares the runtime dependencies. Audit it unless a
+  # lockfile already covers it: requirements files alongside it are often
+  # dev-only or partial, so they do not count as coverage.
+  if [ $locked -eq 0 ]; then
+    for m in pyproject.toml setup.py setup.cfg; do
+      [ -f "$m" ] || continue
+      # A pyproject.toml holding only tool settings (common next to setup.py)
+      # declares no dependencies; move on to the setup file in that case.
+      if [ "$m" = pyproject.toml ] && ! grep -qE '^[[:space:]]*\[(project|tool\.poetry)\]' "$m"; then
+        echo "note: $m has no [project] or [tool.poetry] table, so it declares no dependencies to audit"; continue; fi
+      echo "source: $m without a lockfile (resolved to today's versions; not reproducible)"
+      if [ -n "$pa" ]; then audit_resolved "$m"; else missing pip-audit "pipx install pip-audit"; fi
+      break
+    done
   fi
 }
 
@@ -243,13 +273,34 @@ audit_php() {
 }
 audit_dotnet() {
   cd "$1" || return
-  if have dotnet; then dotnet list package --vulnerable --include-transitive 2>&1
+  if have dotnet; then
+    # The vulnerability listing reads project.assets.json, which only exists
+    # after a restore (written to the gitignored obj/ folders). With a
+    # committed packages.lock.json, restore in locked mode so the audit sees
+    # the committed tree and never rewrites the lockfile.
+    # Decided per project directory (this function runs once per directory
+    # holding a project file), so unlocked projects are restored normally.
+    locked=""; [ -f packages.lock.json ] && locked="--locked-mode"
+    if ! out=$(dotnet restore $locked 2>&1); then
+      # Projects that treat NuGet audit warnings as errors fail restore on the
+      # very vulnerabilities we are looking for, so print every NU1901-NU1904
+      # line (these are the findings) before the general error tail.
+      echo "INCOMPLETE AUDIT: dotnet restore $locked failed, so the full vulnerable-package list could not be produced."
+      [ -n "$locked" ] && echo "(In locked mode this is often a packages.lock.json that is out of date with the project files.)"
+      audit_lines=$(echo "$out" | grep -E 'NU190[1-4]' | sort -u)
+      if [ -n "$audit_lines" ]; then
+        echo "NuGet audit findings reported during restore (may be partial; if warnings are treated as errors they can be the cause of the failure):"
+        echo "$audit_lines"
+      fi
+      echo "-- last restore output --"; echo "$out" | tail -n 10; return
+    fi
+    dotnet list package --vulnerable --include-transitive 2>&1
   else missing dotnet "https://dotnet.microsoft.com/download"; fi
 }
 audit_java() {
   cd "$1" || return
   osv=$(osv_cmd)
-  if [ -n "$osv" ]; then $osv scan source -r . 2>&1 | tail -n 60
+  if [ -n "$osv" ]; then $osv scan source -r . 2>&1
   else missing osv-scanner "brew install osv-scanner"; fi
   echo "Resolved tree: mvn dependency:tree (Maven) or ./gradlew dependencies (Gradle); Gradle builds without a lockfile can only be audited after resolution."
 }
@@ -263,7 +314,8 @@ run_each() { # ecosystem fn  (directories on stdin)
   done
 }
 run_each JavaScript audit_js < <(dirs_with 'package\.json')
-run_each Python audit_python < <( { dirs_with 'requirements[^/]*\.txt'; dirs_with 'pyproject\.toml'; \
+run_each Python audit_python < <( { dirs_with 'requirements[^/]*\.txt'; dirs_with 'requirements/[^/]*\.txt'; \
+    dirs_with 'pyproject\.toml'; dirs_with 'setup\.py'; dirs_with 'setup\.cfg'; \
     dirs_with 'uv\.lock'; dirs_with 'poetry\.lock'; dirs_with 'Pipfile\.lock'; dirs_with 'pdm\.lock'; } \
     | sed -E 's#(^|/)requirements$##; s#^$#.#' | sort -u)
 run_each Go audit_go < <(dirs_with 'go\.mod')
@@ -276,5 +328,5 @@ if [ $found -eq 0 ]; then section "Local audit"; echo "No supported manifest fou
 
 # ------------------------------------------------------------ cross-check
 section "osv-scanner (whole repo cross-check)"
-if have osv-scanner; then osv-scanner scan source -r . 2>&1 | tail -n 60
+if have osv-scanner; then osv-scanner scan source -r . 2>&1
 else echo "skipped: osv-scanner not installed (optional: brew install osv-scanner)"; fi
