@@ -5,7 +5,7 @@
   },
   "metadata": {
     "description": "Open-source skills for Claude Code and other agent CLIs that read the Agent Skills format.",
-    "version": "1.2.0"
+    "version": "1.3.0"
   },
   "plugins": [
     {
@@ -32,8 +32,8 @@
     {
       "name": "fix-vulns",
       "source": "./skills/fix-vulns",
-      "description": "Audits and fixes vulnerable dependencies in a JavaScript/TypeScript repo (Dependabot alerts or npm/pnpm/yarn/bun audit), judging real exposure, applying the smallest safe upgrades, validating against a baseline, and reporting honestly. Never commits or pushes without approval.",
-      "version": "1.0.0",
+      "description": "Audits and fixes vulnerable dependencies in JavaScript/TypeScript, Python, Go, Rust, Ruby, PHP, Java/Kotlin and .NET projects (Dependabot alerts plus each ecosystem's own auditor) on a dedicated branch. Judges which flaws are actually reachable, applies the smallest safe upgrades, validates against a pre-upgrade baseline, and reports what was and was not fixed. Never commits or pushes without approval.",
+      "version": "1.1.0",
       "author": {
         "name": "RansfordGenesis"
       },
@@ -41,9 +41,14 @@
         "security",
         "dependencies",
         "dependabot",
-        "npm-audit",
         "vulnerabilities",
         "cve",
+        "npm-audit",
+        "pip-audit",
+        "python",
+        "govulncheck",
+        "cargo-audit",
+        "osv-scanner",
         "nextjs"
       ],
       "category": "security",

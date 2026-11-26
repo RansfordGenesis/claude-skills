@@ -1,7 +1,7 @@
 {
   "name": "fix-vulns",
-  "description": "Audits and fixes vulnerable dependencies in a JavaScript/TypeScript repo (Dependabot alerts or npm/pnpm/yarn/bun audit) on a dedicated branch. Judges which flaws are actually reachable, applies the smallest safe upgrades, validates against a pre-upgrade baseline, and reports what was and was not fixed. Never commits or pushes without approval.",
-  "version": "1.0.0",
+  "description": "Audits and fixes vulnerable dependencies in JavaScript/TypeScript, Python, Go, Rust, Ruby, PHP, Java/Kotlin and .NET projects (Dependabot alerts plus each ecosystem's own auditor) on a dedicated branch. Judges which flaws are actually reachable, applies the smallest safe upgrades, validates against a pre-upgrade baseline, and reports what was and was not fixed. Never commits or pushes without approval.",
+  "version": "1.1.0",
   "author": {
     "name": "RansfordGenesis"
   },
@@ -9,9 +9,14 @@
     "security",
     "dependencies",
     "dependabot",
-    "npm-audit",
     "vulnerabilities",
     "cve",
+    "npm-audit",
+    "pip-audit",
+    "python",
+    "govulncheck",
+    "cargo-audit",
+    "osv-scanner",
     "nextjs"
   ],
   "skills": [
