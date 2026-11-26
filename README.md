@@ -6,12 +6,12 @@ Open-source skills for [Claude Code](https://claude.com/claude-code) and other a
 
 | Skill | What it does |
 |---|---|
-| [fix-vulns](#fix-vulns) | Audits and fixes vulnerable dependencies in a JavaScript or TypeScript repo |
+| [fix-vulns](#fix-vulns) | Audits and fixes vulnerable dependencies in JavaScript, Python, Go, Rust, Ruby, PHP, Java and .NET projects |
 | [ghana-data-protection-policies](#ghana-data-protection-policies) | Drafts and audits privacy policies, terms and cookie policies under Ghana's Data Protection Act |
 
 ### [fix-vulns](skills/fix-vulns/SKILL.md)
 
-Audits and fixes vulnerable dependencies in a JavaScript or TypeScript project. It reads the repo's open Dependabot alerts from GitHub when they are enabled, and otherwise uses the project's own audit (`npm audit`, or the pnpm, yarn or bun equivalent). For each finding it works out whether the vulnerable code can actually be reached in production, based on whether the package ships to users, whether the app uses the affected feature, and where it is hosted, then applies the smallest upgrade that installs a patched version.
+Audits and fixes vulnerable dependencies in a project, in whichever ecosystems it uses: JavaScript/TypeScript (npm, pnpm, Yarn, Bun), Python (pip, uv, Poetry, Pipenv, PDM), Go, Rust, Ruby, PHP, Java/Kotlin and .NET. Full-stack repos with, say, a JavaScript frontend and a Python backend are handled together. It reads the repo's open Dependabot alerts from GitHub when they are enabled, and runs each ecosystem's own auditor too (`npm audit`, `pip-audit`, `govulncheck`, `cargo audit`, `bundle-audit`, `composer audit`, `dotnet list package --vulnerable`, with `osv-scanner` as a cross-check). For each finding it works out whether the vulnerable code can actually be reached in production, based on whether the package ships to users, whether the app uses the affected feature, and where it is hosted, then applies the smallest upgrade that installs a patched version.
 
 It works on a dedicated branch, records the project's test, lint, typecheck and build results before changing anything so pre-existing failures are not blamed on the upgrade, re-runs them afterwards, smoke-tests the running app, and ends with a report of what was fixed, what was not and why. It never commits, pushes, merges, dismisses alerts or forces upgrades without your approval.
 
@@ -20,8 +20,9 @@ It works on a dedicated branch, records the project's test, lint, typecheck and 
 - "Fix the Dependabot alerts in this repo."
 - "npm audit shows two criticals. Patch what's safe to patch and tell me what's left."
 - "There's a new Next.js security advisory. Are we affected, and can you upgrade us?"
+- "Check the Python backend's dependencies for known vulnerabilities and fix them."
 
-**Needs:** `git`, Node.js and the project's package manager. The [GitHub CLI](https://cli.github.com) (`gh`, logged in) is optional; without it, or when Dependabot alerts are disabled on the repo, the skill falls back to the local audit. It only reads alerts from GitHub and never writes to it.
+**Needs:** `git` and the project's own package manager(s). For Python, [`pip-audit`](https://github.com/pypa/pip-audit) (used through `uvx` or `pipx` if it is not installed); for other ecosystems, their auditor (the skill says which one is missing and how to install it, and asks before installing anything). [`osv-scanner`](https://google.github.io/osv-scanner/) is an optional extra cross-check. The [GitHub CLI](https://cli.github.com) (`gh`, logged in) is optional; without it, or when Dependabot alerts are disabled on the repo, the skill falls back to the local audit. It only reads alerts from GitHub and never writes to it.
 
 ### [ghana-data-protection-policies](skills/ghana-data-protection-policies/SKILL.md)
 
